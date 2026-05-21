@@ -32,12 +32,13 @@ jobs:
       id: ruby-inst
       env:
         BUNDLE_BUILD__NUMO___NARRAY: --with-cflags=-std=c17
-        BUNDLE_BUILD__NUMO___FFTW: ${{ env.BUNDLE_BUILD__NUMO___FFTW }}
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
     - name: Run the default task
-      run: bundle exec rake
+      run: |
+        bundle exec rake compile -- ${{ env.BUNDLE_BUILD__NUMO___FFTW }}
+        bundle exec rake spec
     - name: Upload artifact for error reproduction when failure
       if: ${{ failure() }}
       uses: actions/upload-artifact@v7
