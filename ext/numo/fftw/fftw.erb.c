@@ -150,10 +150,10 @@ numo_fftw_<%=func%>(VALUE mod, VALUE vna, VALUE vsign)
 void
 Init_fftw()
 {
-    VALUE mNumo,mFFTW;
+    VALUE /*mNumo,*/ mFFTW; // CAUTION: mNumo is already defined in narray.h
 
     rb_require("numo/narray");
-    mNumo = rb_define_module("Numo");
+    //mNumo = rb_define_module("Numo");
     mFFTW = rb_define_module_under(mNumo,"FFTW");
 
 <% $funcs.each do |f| %>
