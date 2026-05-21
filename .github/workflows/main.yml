@@ -27,11 +27,18 @@ jobs:
           echo "BUNDLE_BUILD__NUMO___FFTW=\"--with-fftw-dir=$(cygpath -m ${VCPKG_INSTALLATION_ROOT})/packages/fftw3_x64-mingw-static\"" >> $GITHUB_ENV
           ;;
         esac
+        case ${{ matrix.ruby }} in
+        '2.3')
+          ;;
+        *)
+          echo "BUNDLE_BUILD__NUMO___NARRAY=\"--with-cflags=-std=c17\"" >> $GITHUB_ENV
+          ;;
+        esac
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       id: ruby-inst
       env:
-        BUNDLE_BUILD__NUMO___NARRAY: --with-cflags=-std=c17
+        BUNDLE_BUILD__NUMO___NARRAY: ${{ env.BUNDLE_BUILD__NUMO___NARRAY }}
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
