@@ -152,7 +152,7 @@ Init_fftw()
 {
     VALUE /*mNumo,*/ mFFTW; // CAUTION: mNumo is already defined in narray.h
 
-    rb_require("numo/narray");
+    //rb_require("numo/narray"); // move to fftw.rb because numo/narray.so should be loaded before Init_fftw()
     //mNumo = rb_define_module("Numo");
     mFFTW = rb_define_module_under(mNumo,"FFTW");
 
